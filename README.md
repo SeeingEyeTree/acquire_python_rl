@@ -40,3 +40,25 @@ yarn
     curl http://cdnjs.cloudflare.com/ajax/libs/history.js/1.8/native.history.min.js > native.history-1.8.js
     curl http://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js > sockjs-1.5.0.js
     curl http://cdnjs.cloudflare.com/ajax/libs/stacktrace.js/1.3.1/stacktrace-with-promises-and-json-polyfills.min.js > stacktrace-1.3.1.js
+
+## RL environment (Gym-like interface)
+
+A minimal training interface is available in `server/rl_env.py`.
+
+```python
+from rl_env import AcquireGymEnv
+
+env = AcquireGymEnv(num_players=2)
+state = env.reset()
+
+# action format: (game_action_id, *params)
+action = env.legal_actions()[0]
+next_state, reward, done, truncated = env.step(action)
+```
+
+`reward` is the change in the acting player's net-worth gap versus:
+- second place if the acting player is currently first, or
+- first place otherwise.
+
+This makes the reward directly reflect movement relative to winning position.
+
