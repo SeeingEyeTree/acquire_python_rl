@@ -62,3 +62,20 @@ next_state, reward, done, truncated = env.step(action)
 
 This makes the reward directly reflect movement relative to winning position.
 
+## DQN training script (TensorFlow)
+
+A reference Deep Q-Network trainer is available in `server/rl_training.py`.
+
+- Uses TensorFlow/Keras with two hidden layers of 64 neurons each.
+- Converts the full game-state dictionary into a fixed numeric vector with `state_to_numeric_vector`.
+- Uses a fixed action space with legal-action masking.
+- Includes replay buffer training and epsilon-greedy exploration.
+- Uses `model.fit(..., verbose=1)` so training progress is visible.
+- Saves the trained model using a configurable `save_path`.
+
+Run manually when you are ready to train:
+
+```bash
+python server/rl_training.py
+```
+
